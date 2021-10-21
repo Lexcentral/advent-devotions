@@ -78,22 +78,16 @@ module.exports = {
                 })
               })
             },
-            query: `
+            query: `($currentDate: Date!)
               {
-                allMarkdownRemark(
-                  sort: { order: DESC, fields: [frontmatter___date] },
-                ) {
-                  edges {
-                    node {
-                      excerpt
-                      html
-                      fields { 
-                        slug 
-                        date
-                        path
-                        author
-                      }
-                    }
+                markdownRemark(fields: {date: {eq: "2021-11-29"}}) {
+                  excerpt
+                  html
+                  fields { 
+                    slug 
+                    date
+                    path
+                    author
                   }
                 }
               }
