@@ -59,6 +59,19 @@ const { createFilePath } = require(`gatsby-source-filesystem`);
 //   }
 // };
 
+function getCurrentDate() {
+  const d = new Date();
+  let month = (d.getMonth() + 1).toString();
+  if (month.length < 2) {
+    month = `0${month}`;
+  }
+  let day = d.getDate().toString();
+  if (day.length < 2) {
+    day = `0${day}`;
+  }
+  return `${d.getFullYear()}-${month}-${day}`;
+}
+
 exports.onCreateNode = ({ node, actions }) => {
   // You need to enable `gatsby-transformer-remark` to transform `GoogleDocs` type to `MarkdownRemark` type.
   if (node.internal.type === `MarkdownRemark`) {
@@ -112,6 +125,7 @@ exports.createPages = async ({ graphql, actions }) =>
         component: path.resolve(`./src/templates/blog-post.js`),
         context: {
           slug: post.node.fields.slug,
+          currentDate: getCurrentDate(),
         },
       });
     });
