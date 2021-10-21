@@ -1,0 +1,11 @@
+{
+  "name": "gatsby-remark-google-doc-soft-returns",
+  "version": "1.0.0",
+  "description": "Add breaks for soft returns in google docs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Aaron Austin",
+  "license": "ISC"
+}

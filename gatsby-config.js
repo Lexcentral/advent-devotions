@@ -1,31 +1,31 @@
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Starter Blog`,
+    title: `Advent Devotions`,
     author: {
-      name: `Kyle Mathews`,
-      summary: `who lives and works in San Francisco building useful things.`,
+      name: `Central Baptist Church, Lexington, KY`,
+      summary: `Advent devotions from a loving, healthy, and progressive family of faith.`,
     },
-    description: `A starter blog demonstrating what Gatsby can do.`,
+    description: `Advent devotions from a loving, healthy, and progressive family of faith.`,
     siteUrl: `https://gatsby-starter-blog-demo.netlify.app/`,
     social: {
       twitter: `kylemathews`,
     },
   },
   plugins: [
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        path: `${__dirname}/content/blog`,
-        name: `blog`,
-      },
-    },
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        path: `${__dirname}/content/assets`,
-        name: `assets`,
-      },
-    },
+    // {
+    //   resolve: `gatsby-source-filesystem`,
+    //   options: {
+    //     path: `${__dirname}/content/blog`,
+    //     name: `blog`,
+    //   },
+    // },
+    // {
+    //   resolve: `gatsby-source-filesystem`,
+    //   options: {
+    //     path: `${__dirname}/content/assets`,
+    //     name: `assets`,
+    //   },
+    // },
     {
       resolve: `gatsby-transformer-remark`,
       options: {
@@ -51,12 +51,66 @@ module.exports = {
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     {
-      resolve: `gatsby-plugin-google-analytics`,
+      resolve: `gatsby-plugin-feed`,
       options: {
-        //trackingId: `ADD YOUR TRACKING ID HERE`,
+        query: `
+          {
+            site {
+              siteMetadata {
+                title
+                description
+                siteUrl
+                site_url: siteUrl
+              }
+            }
+          }
+        `,
+        feeds: [
+          {
+            serialize: ({ query: { site, allMarkdownRemark } }) => {
+              return allMarkdownRemark.edges.map(edge => {
+                return Object.assign({}, edge.node.frontmatter, {
+                  description: edge.node.excerpt,
+                  date: edge.node.fields.date,
+                  url: site.siteMetadata.siteUrl + edge.node.fields.path,
+                  guid: site.siteMetadata.siteUrl + edge.node.fields.path,
+                  custom_elements: [{ "content:encoded": edge.node.html }],
+                })
+              })
+            },
+            query: `
+              {
+                allMarkdownRemark(
+                  sort: { order: DESC, fields: [frontmatter___date] },
+                ) {
+                  edges {
+                    node {
+                      excerpt
+                      html
+                      fields { 
+                        slug 
+                        date
+                        path
+                        author
+                      }
+                    }
+                  }
+                }
+              }
+            `,
+            output: "/rss.xml",
+            title: "Advent Devotions - Central Baptist Church, Lexington, KY",
+            // optional configuration to insert feed reference in pages:
+            // if `string` is used, it will be used to create RegExp and then test if pathname of
+            // current page satisfied this regular expression;
+            // if not provided or `undefined`, all pages will have feed reference inserted
+            // match: "^/blog/",
+            // optional configuration to specify external rss feed, such as feedburner
+            // link: "https://feeds.feedburner.com/gatsby/blog",
+          },
+        ],
       },
     },
-    `gatsby-plugin-feed`,
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
@@ -73,5 +127,44 @@ module.exports = {
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
+    // https: //www.gatsbyjs.com/plugins/gatsby-source-google-docs-team/?=source%20google%20docs
+    {
+      resolve: 'gatsby-source-google-docs',
+      options: {
+        // Mandatory
+        // --------
+        folder: '16v6ZiH5-bUHg5Do_9pDhWP8Je1IL8y1l', // folders Ids can be found in Google Drive URLs
+        // Optional
+        // --------
+        fields: ['createdTime'], // https://developers.google.com/drive/api/v3/reference/files#resource
+        fieldsMapper: {}, // To rename fields
+        fieldsDefault: { draft: false }, // To add default fields values
+        convertImgToNode: true, // To convert images to remote node files
+      },
+    },
+    // Use gatsby-transformer-remark to modify the generated markdown
+    // Not mandatary, but recommanded to be compliant with gatsby remark ecosystem
+    {
+      resolve: 'gatsby-transformer-remark',
+      options: {
+        plugins: [
+          {
+            resolve: 'gatsby-remark-find-replace',
+            options: {
+              // List your find and replace values. Both values must be strings.
+              // This is required.
+              replacements: {
+                '\u000b': '\r\n',
+              },
+              // By default, find values are prefixed to reduce the chances of
+              // conflicting with real content. You can change the prefix here.
+              // Set to `false` to disable the prefix.
+              prefix: false,
+            },
+          },
+          // `gatsby-remark-line-breaks`,
+        ],
+      },
+    },
   ],
-}
+};
