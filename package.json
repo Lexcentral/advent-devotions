@@ -27,13 +27,15 @@
     "gatsby-source-google-docs": "^2.1.2",
     "gatsby-transformer-remark": "^4.11.0",
     "gatsby-transformer-sharp": "^3.14.0",
+    "mdast-util-to-string": "^3.1.0",
     "prismjs": "^1.25.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-helmet": "^6.1.0",
     "remark-breaks": "^3.0.1",
     "typeface-merriweather": "^1.1.13",
-    "typeface-montserrat": "^1.1.13"
+    "typeface-montserrat": "^1.1.13",
+    "unist-util-visit": "^2.0.3"
   },
   "devDependencies": {
     "prettier": "2.4.1"

@@ -150,20 +150,21 @@ module.exports = {
       resolve: 'gatsby-transformer-remark',
       options: {
         plugins: [
-          {
-            resolve: 'gatsby-remark-find-replace',
-            options: {
-              // List your find and replace values. Both values must be strings.
-              // This is required.
-              replacements: {
-                '\u000b': '\r\n',
-              },
-              // By default, find values are prefixed to reduce the chances of
-              // conflicting with real content. You can change the prefix here.
-              // Set to `false` to disable the prefix.
-              prefix: false,
-            },
-          },
+          `gatsby-remark-google-doc-soft-returns`
+          // {
+          //   resolve: 'gatsby-remark-find-replace',
+          //   options: {
+          //     // List your find and replace values. Both values must be strings.
+          //     // This is required.
+          //     replacements: {
+          //       '\u000b': '\r\n',
+          //     },
+          //     // By default, find values are prefixed to reduce the chances of
+          //     // conflicting with real content. You can change the prefix here.
+          //     // Set to `false` to disable the prefix.
+          //     prefix: false,
+          //   },
+          // },
           // `gatsby-remark-line-breaks`,
         ],
       },
