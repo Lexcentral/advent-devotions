@@ -60,6 +60,7 @@ const { createFilePath } = require(`gatsby-source-filesystem`);
 //   }
 // };
 
+//https://www.lekoarts.de/garden/filter-future-posts-on-a-gatsby-blog
 exports.createSchemaCustomization = ({ actions }) => {
   const { createTypes, createFieldExtension } = actions;
 
