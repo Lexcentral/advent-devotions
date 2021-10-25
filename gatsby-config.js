@@ -141,6 +141,7 @@ module.exports = {
         fieldsMapper: {}, // To rename fields
         fieldsDefault: { draft: false }, // To add default fields values
         convertImgToNode: true, // To convert images to remote node files
+        skipCodes: true,
       },
     },
     // Use gatsby-transformer-remark to modify the generated markdown
