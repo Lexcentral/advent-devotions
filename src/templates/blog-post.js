@@ -1,10 +1,11 @@
 import React from 'react';
 import { graphql } from 'gatsby';
+import Layout from '../components/layout';
 
-const PostTemplate = ({ data: { post } }) => (
-  <>
+const PostTemplate = ({ location, data: { post } }) => (
+  <Layout location={location} siteTitle={post.title}>
     <div dangerouslySetInnerHTML={{ __html: post.html }} />
-  </>
+  </Layout>
 );
 
 export default PostTemplate;
