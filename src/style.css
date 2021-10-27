@@ -393,10 +393,12 @@ a:focus {
 }
 
 .header-link-home {
-  font-weight: var(--fontWeight-bold);
-  font-family: var(--font-heading);
-  text-decoration: none;
+  font-family: var(--fontFamily-serif);
   font-size: var(--fontSize-2);
+  color: var(--color-text);
+  display: flex;
+  align-items: center;
+  text-decoration: none;
 }
 
 .bio {
