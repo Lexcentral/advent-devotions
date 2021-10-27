@@ -4,7 +4,13 @@ const Logo = (props) => {
   if (props.icon) {
     return (
       <div className='logo-icon'>
-        <svg viewBox='0 0 208 218' fill-rule='evenodd' clip-rule='evenodd'>
+        <svg
+          viewBox='0 0 208 218'
+          fill-rule='evenodd'
+          width='100%'
+          height='100%'
+          clip-rule='evenodd'
+        >
           <g>
             <g id='swirl'>
               <path
@@ -25,6 +31,8 @@ const Logo = (props) => {
     return (
       <div className='logo'>
         <svg
+          width='100%'
+          height='100%'
           viewBox='0 0 612 218'
           fill-rule='evenodd'
           clip-rule='evenodd'
