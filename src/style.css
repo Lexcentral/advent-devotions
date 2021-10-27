@@ -162,7 +162,7 @@
   --fontSize-5: 2.074rem;
   --fontSize-6: 2.488rem;
   --fontSize-7: 2.986rem;
-  --color-primary: #005b99;
+  --color-primary: #068ccd;
   --color-text: #2e353f;
   --color-text-light: #4f5969;
   --color-heading: #1a202c;
@@ -193,6 +193,7 @@ body {
 
 footer {
   padding: var(--spacing-6) var(--spacing-0);
+  font-size: var(--fontSize-0);
 }
 
 hr {
@@ -273,7 +274,6 @@ p {
   --x-height-multiplier: 0.35;
   margin: var(--spacing-0) var(--spacing-0) var(--spacing-8) var(--spacing-0);
   padding: var(--spacing-0);
-  white-space: pre-wrap;
 }
 
 ul,
@@ -360,12 +360,16 @@ a:focus {
 }
 
 .global-header {
-  margin-bottom: var(--spacing-12);
+  margin-bottom: var(--spacing-1);
 }
 
 .main-heading {
-  font-size: var(--fontSize-7);
+  font-size: var(--fontSize-6);
+  font-weight: normal;
+  font-family: var(--fontFamily-serif);
+  /* font-style: italic; */
   margin: 0;
+  text-align: center;
 }
 
 .post-list-item {
@@ -428,6 +432,63 @@ a:focus {
   margin-bottom: var(--spacing-8);
 }
 
+.dateBox {
+  font-size: var(--fontSize-1);
+  line-height: var(--lineHeight-relaxed);
+  display: flex;
+  align-items: center;
+}
+.dateBox .weekday,
+.dateBox .dateLabel {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 0.5em;
+}
+
+.dateBox .weekday {
+  background-color: var(--color-primary);
+  color: #fff;
+  border-radius: 0.25em;
+  font-size: 0.6em;
+  text-transform: uppercase;
+}
+.dateBox .dateLabel {
+  color: var(--color-text-light);
+  font-weight: normal;
+}
+
+.excerptText {
+  font-style: italic;
+  color: var(--color-text-light);
+}
+
+.main-heading .year {
+  font-size: var(--fontSize-3);
+  letter-spacing: 0.5em;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 0.5em;
+  font-family: var(--fontFamily-sans);
+}
+.logoWrapper {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+.info {
+  text-align: center;
+  font-size: var(--fontSize-0);
+  color: var(--color-text-light);
+  font-style: italic;
+  max-width: 600px;
+  margin-bottom: var(--spacing-6);
+}
+.logo {
+  max-width: 125px;
+}
+.logo-icon {
+  max-width: 44px;
+}
 /* Media queries */
 
 @media (max-width: 42rem) {

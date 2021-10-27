@@ -1,5 +1,7 @@
 const path = require(`path`);
 const get = require(`lodash.get`);
+const remark = require('remark');
+const visit = require('unist-util-visit');
 const { createFilePath } = require(`gatsby-source-filesystem`);
 
 // exports.createPages = async ({ graphql, actions, reporter }) => {
@@ -98,6 +100,21 @@ exports.onCreateNode = ({ node, actions }) => {
   // You need to enable `gatsby-transformer-remark` to transform `GoogleDocs` type to `MarkdownRemark` type.
   if (node.internal.type === `MarkdownRemark`) {
     const customSlug = node.frontmatter.slug; // If you add extra data `slug` with description field
+    const tree = remark().parse(node.rawMarkdownBody);
+
+    let excerpt = '';
+    let start = false;
+    visit(tree, 'text', (node) => {
+      console.log(node);
+      if (start) {
+        excerpt += node.value;
+      }
+      if (node.value === '***') {
+        start = true;
+      }
+    });
+
+    excerpt = excerpt.slice(0, 140) + '...';
     actions.createNodeField({
       name: `slug`,
       node,
@@ -118,6 +135,11 @@ exports.onCreateNode = ({ node, actions }) => {
       node,
       value: node.frontmatter.author,
     });
+    actions.createNodeField({
+      name: `excerpt`,
+      node,
+      value: excerpt,
+    });
   }
 };
 
@@ -128,6 +150,7 @@ exports.createPages = async ({ graphql, actions }) =>
         allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
           edges {
             node {
+              excerpt
               fields {
                 slug
                 path

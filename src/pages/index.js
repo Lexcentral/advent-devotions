@@ -1,18 +1,19 @@
 import React from 'react';
 import { graphql } from 'gatsby';
 import { Link } from 'gatsby';
-
+import Logo from '../components/logo';
 import Bio from '../components/bio';
 import Layout from '../components/layout';
 import SEO from '../components/seo';
 
 const BlogIndex = ({ data, location }) => {
+  const blogYear = data.allMarkdownRemark.nodes[0].frontmatter.year;
   const siteTitle = data.site.siteMetadata?.title || `Title`;
   const posts = data.allMarkdownRemark.nodes;
 
   if (posts.length === 0) {
     return (
-      <Layout location={location} title={siteTitle}>
+      <Layout location={location} title={`${siteTitle} ${blogYear}`}>
         <SEO title='All posts' />
         <Bio />
         <p>
@@ -25,9 +26,23 @@ const BlogIndex = ({ data, location }) => {
   }
 
   return (
-    <Layout location={location} title={siteTitle}>
-      <SEO title='All posts' />
-      <Bio />
+    <Layout
+      location={location}
+      title={
+        <>
+          <div className='title'>{siteTitle}</div>{' '}
+          <div className='year'>{blogYear}</div>
+        </>
+      }
+    >
+      <SEO title='Advent Devotions' />
+      <div className='logoWrapper'>
+        <p className='info'>
+          Daily devotions from Central Baptist Church, Lexington, KY
+          <br /> — a loving, progressive, and inclusive family of faith.
+        </p>
+        <Logo icon={true} />
+      </div>
       <ol style={{ listStyle: `none` }}>
         {posts.map((post) => {
           const title = post.fields.author || post.fields.slug;
@@ -40,17 +55,27 @@ const BlogIndex = ({ data, location }) => {
                 itemType='http://schema.org/Article'
               >
                 <header>
-                  <h2>
+                  <h3>
                     <Link to={post.fields.path}>
-                      <span itemProp='headline'>{title}</span>
+                      <div className='dateBox'>
+                        <span className='weekday'>
+                          {post.frontmatter.weekday}
+                        </span>
+                        <span className='dateLabel'>
+                          {post.frontmatter.date}
+                        </span>
+                      </div>
+                      <span className='listTitle' itemProp='headline'>
+                        {title}
+                      </span>
                     </Link>
-                  </h2>
-                  <small>{post.frontmatter.date}</small>
+                  </h3>
                 </header>
                 <section>
                   <p
+                    className='excerptText'
                     dangerouslySetInnerHTML={{
-                      __html: post.excerpt,
+                      __html: post.fields.excerpt,
                     }}
                     itemProp='description'
                   />
@@ -83,9 +108,12 @@ export const pageQuery = graphql`
           slug
           path
           author
+          excerpt
         }
         frontmatter {
-          date(formatString: "MMMM DD, YYYY")
+          date(formatString: "MMM. DD")
+          weekday: date(formatString: "ddd")
+          year: date(formatString: "YYYY")
           title
           description
         }

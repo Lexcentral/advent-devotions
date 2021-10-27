@@ -12,24 +12,11 @@ module.exports = {
     },
   },
   plugins: [
-    // {
-    //   resolve: `gatsby-source-filesystem`,
-    //   options: {
-    //     path: `${__dirname}/content/blog`,
-    //     name: `blog`,
-    //   },
-    // },
-    // {
-    //   resolve: `gatsby-source-filesystem`,
-    //   options: {
-    //     path: `${__dirname}/content/assets`,
-    //     name: `assets`,
-    //   },
-    // },
     {
       resolve: `gatsby-transformer-remark`,
       options: {
         plugins: [
+          
           {
             resolve: `gatsby-remark-images`,
             options: {
@@ -45,6 +32,8 @@ module.exports = {
           `gatsby-remark-prismjs`,
           `gatsby-remark-copy-linked-files`,
           `gatsby-remark-smartypants`,
+          `gatsby-remark-google-doc-soft-returns`,
+          `gatsby-remark-custom-excerpts`,
         ],
       },
     },
@@ -142,31 +131,6 @@ module.exports = {
         fieldsDefault: { draft: false }, // To add default fields values
         convertImgToNode: true, // To convert images to remote node files
         skipCodes: true,
-      },
-    },
-    // Use gatsby-transformer-remark to modify the generated markdown
-    // Not mandatary, but recommanded to be compliant with gatsby remark ecosystem
-    {
-      resolve: 'gatsby-transformer-remark',
-      options: {
-        plugins: [
-          `gatsby-remark-google-doc-soft-returns`
-          // {
-          //   resolve: 'gatsby-remark-find-replace',
-          //   options: {
-          //     // List your find and replace values. Both values must be strings.
-          //     // This is required.
-          //     replacements: {
-          //       '\u000b': '\r\n',
-          //     },
-          //     // By default, find values are prefixed to reduce the chances of
-          //     // conflicting with real content. You can change the prefix here.
-          //     // Set to `false` to disable the prefix.
-          //     prefix: false,
-          //   },
-          // },
-          // `gatsby-remark-line-breaks`,
-        ],
       },
     },
   ],
