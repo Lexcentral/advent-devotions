@@ -36,13 +36,12 @@ const BlogIndex = ({ data, location }) => {
       }
     >
       <SEO title='Advent Devotions' />
-      <div className='logoWrapper'>
-        <p className='info'>
-          Daily devotions from Central Baptist Church, Lexington, KY
-          <br /> — a loving, progressive, and inclusive family of faith.
-        </p>
-        <Logo icon={true} />
-      </div>
+
+      <p className='info'>
+        Daily devotions from Central Baptist Church, Lexington, KY
+        <br /> — a loving, progressive, and inclusive family of faith.
+      </p>
+
       <ol style={{ listStyle: `none` }}>
         {posts.map((post) => {
           const title = post.fields.author || post.fields.slug;

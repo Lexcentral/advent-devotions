@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'gatsby';
+import Logo from '../components/logo';
 
 const Layout = ({ location, title, children }) => {
   const rootPath = `${__PATH_PREFIX__}/`;
@@ -8,9 +9,12 @@ const Layout = ({ location, title, children }) => {
 
   if (isRootPath) {
     header = (
-      <h1 className='main-heading'>
-        <Link to='/'>{title}</Link>
-      </h1>
+      <div className='logoWrapper'>
+        <Logo icon={true} />
+        <h1 className='main-heading'>
+          <Link to='/'>{title}</Link>
+        </h1>
+      </div>
     );
   } else {
     header = (
