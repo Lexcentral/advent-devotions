@@ -483,6 +483,9 @@ a:focus {
   color: var(--color-text-light);
   font-style: italic;
   margin-bottom: var(--spacing-6);
+  max-width: calc(var(--fontSize-0) * 30);
+  margin-left: auto;
+  margin-right: auto;
 }
 .logo {
   max-width: 125px;

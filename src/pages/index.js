@@ -38,8 +38,8 @@ const BlogIndex = ({ data, location }) => {
       <SEO title='Advent Devotions' />
 
       <p className='info'>
-        Daily devotions from Central Baptist Church, Lexington, KY
-        <br /> — a loving, progressive, and inclusive family of faith.
+        Daily devotions from Central Baptist Church — a loving, progressive, and
+        inclusive family of faith.
       </p>
 
       <ol style={{ listStyle: `none` }}>

@@ -32,8 +32,9 @@ module.exports = {
           `gatsby-remark-prismjs`,
           `gatsby-remark-copy-linked-files`,
           `gatsby-remark-smartypants`,
-          `gatsby-remark-google-doc-soft-returns`,
-          `gatsby-remark-custom-excerpts`,
+          // `gatsby-remark-google-doc-soft-returns`,
+          // `gatsby-remark-custom-excerpts`,
+          `gatsby-remark-add-hr`
         ],
       },
     },
