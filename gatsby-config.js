@@ -29,12 +29,13 @@ module.exports = {
               wrapperStyle: `margin-bottom: 1.0725rem`,
             },
           },
-          `gatsby-remark-prismjs`,
+          // `gatsby-remark-prismjs`,
           `gatsby-remark-copy-linked-files`,
-          `gatsby-remark-smartypants`,
+          // `gatsby-remark-smartypants`,
           // `gatsby-remark-google-doc-soft-returns`,
           // `gatsby-remark-custom-excerpts`,
-          `gatsby-remark-add-hr`
+          `gatsby-remark-add-hr`,
+          `gatsby-remark-code-to-blockquote`,
         ],
       },
     },
@@ -132,6 +133,7 @@ module.exports = {
         fieldsDefault: { draft: false }, // To add default fields values
         convertImgToNode: true, // To convert images to remote node files
         skipCodes: true,
+        // skipQuotes: true,
       },
     },
   ],
