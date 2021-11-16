@@ -7,19 +7,53 @@ import Layout from '../components/layout';
 import SEO from '../components/seo';
 
 const BlogIndex = ({ data, location }) => {
-  const blogYear = data.allMarkdownRemark.nodes[0].frontmatter.year;
+  const blogYear =
+    data.allMarkdownRemark.nodes[0]?.frontmatter.year ||
+    new Date().getFullYear();
   const siteTitle = data.site.siteMetadata?.title || `Title`;
   const posts = data.allMarkdownRemark.nodes;
 
+  const getAdvent = (year) => {
+    const options = {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    };
+    //in javascript months are zero-indexed. january is 0, december is 11
+    let d = new Date(
+      new Date(year, 11, 24, 0, 0, 0, 0).getTime() - 3 * 7 * 24 * 60 * 60 * 1000
+    );
+    while (d.getDay() != 0) {
+      d = new Date(d.getTime() - 24 * 60 * 60 * 1000);
+    }
+
+    return d.toLocaleDateString('en-US', options);
+  };
+
   if (posts.length === 0) {
+    const adventStart = getAdvent(blogYear);
     return (
-      <Layout location={location} title={`${siteTitle} ${blogYear}`}>
-        <SEO title='All posts' />
-        <Bio />
+      <Layout
+        location={location}
+        title={
+          <>
+            <div className='title'>{siteTitle}</div>{' '}
+            <div className='year'>{blogYear}</div>
+          </>
+        }
+      >
+        <SEO title='Advent Devotions' />
+
+        <p className='info'>
+          Daily devotions from Central Baptist Church — a loving, progressive,
+          and inclusive family of faith.
+        </p>
+        <h3>Welcome to Central Baptist Church Advent Devotions. </h3>
         <p>
-          No blog posts found. Add markdown posts to "content/blog" (or the
-          directory you specified for the "gatsby-source-filesystem" plugin in
-          gatsby-config.js).
+          You'll find devotions here for each day of Advent beginning{' '}
+          {adventStart}. Or get them via email by signing up for our newsletter
+          at <a href='http://lexcentral.com'>LexCentral.com</a>.
         </p>
       </Layout>
     );
