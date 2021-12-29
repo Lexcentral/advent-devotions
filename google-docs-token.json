@@ -1,1 +1,11 @@
-{"access_token":"ya29.a0AfH6SMC9ddFhBBbC3ILf3jnQddAnhUxkBFWVY6SDM0uVI3jxlQhZQOpm3OCpb7rN-got04B6drEyJ5hEczbmJYVGua-jrOVh5Syz7xIBkDpOushxPXi-zlgajD2J74JyX4iKbVPJQwOHfBWqYtnFIyr32KFNoSn9NjGdM3RfV_I","refresh_token":"1//04rZJbIyOuHN1CgYIARAAGAQSNwF-L9IrHDE1wysMS-BXDgVxooueRkXMaLrS0r7gis1i7Ae1WMShb-UB9h21axTldX35tXO1C1c","scope":"https://www.googleapis.com/auth/documents.readonly https://www.googleapis.com/auth/drive.metadata.readonly","token_type":"Bearer","expiry_date":1607632970981}
+{
+    "GOOGLE_OAUTH_CLIENT_ID": "72976180113-hgh7r0laut0d5qkt8f5huau2qmc9513d.apps.googleusercontent.com",
+    "GOOGLE_OAUTH_CLIENT_SECRET": "NFAifulMkXsJsmvM6fuQOged",
+    "GOOGLE_DOCS_TOKEN": {
+        "access_token": "ya29.a0ARrdaM9ZGi0PNEGupN5D1PvDk4nzFMkg5lsUcgZKZUmQjG2A181c0Iql9usXT3BdBqWoSkHiPjXVjChWf7l95CaagsAfMGyheKiTAduBxpeJ_dmH2eqO8NLFB0soRSjeg2b-1FM0u6XRFB7sQdiLLaGzRLqW",
+        "refresh_token": "1//04t3ilmKPbnVkCgYIARAAGAQSNwF-L9IrBDlRfejH6M0M9192nAGw89dRZht1zevXnGUUQb3x3GwjAJJaA_OXN_uYlYgKtabisLY",
+        "scope": "https://www.googleapis.com/auth/documents.readonly https://www.googleapis.com/auth/drive.metadata.readonly",
+        "token_type": "Bearer",
+        "expiry_date": 1634759272504
+    }
+}
