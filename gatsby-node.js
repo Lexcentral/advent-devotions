@@ -64,32 +64,32 @@ const { createFilePath } = require(`gatsby-source-filesystem`);
 
 //https://www.lekoarts.de/garden/filter-future-posts-on-a-gatsby-blog
 exports.createSchemaCustomization = ({ actions }) => {
-  const { createTypes, createFieldExtension } = actions;
+	const { createTypes, createFieldExtension } = actions;
 
-  // isFuture("yourName") returns the function source => {
-  //   const date = get(source, "yourName")
-  //   return new Date(date) > new Date()
-  // }
-  // This is called Currying
-  // https://en.wikipedia.org/wiki/Currying
-  const isFuture = (fieldName) => (source) => {
-    const date = get(source, fieldName);
-    return new Date(date) >= new Date();
-  };
+	// isFuture("yourName") returns the function source => {
+	//   const date = get(source, "yourName")
+	//   return new Date(date) > new Date()
+	// }
+	// This is called Currying
+	// https://en.wikipedia.org/wiki/Currying
+	const isFuture = (fieldName) => (source) => {
+		const date = get(source, fieldName);
+		return new Date(date) <= new Date();
+	};
 
-  createFieldExtension({
-    name: `isFuture`,
-    args: {
-      fieldName: 'String!',
-    },
-    extend({ fieldName }) {
-      return {
-        resolve: isFuture(fieldName),
-      };
-    },
-  });
+	createFieldExtension({
+		name: `isFuture`,
+		args: {
+			fieldName: 'String!',
+		},
+		extend({ fieldName }) {
+			return {
+				resolve: isFuture(fieldName),
+			};
+		},
+	});
 
-  createTypes(`
+	createTypes(`
     type MarkdownRemark implements Node {
       isFuture: Boolean! @isFuture(fieldName: "frontmatter.date")
     }
@@ -97,83 +97,83 @@ exports.createSchemaCustomization = ({ actions }) => {
 };
 
 exports.onCreateNode = ({ node, actions }) => {
-  // You need to enable `gatsby-transformer-remark` to transform `GoogleDocs` type to `MarkdownRemark` type.
-  if (node.internal.type === `MarkdownRemark`) {
-    const customSlug = node.frontmatter.slug; // If you add extra data `slug` with description field
-    const tree = remark().parse(node.rawMarkdownBody);
+	// You need to enable `gatsby-transformer-remark` to transform `GoogleDocs` type to `MarkdownRemark` type.
+	if (node.internal.type === `MarkdownRemark`) {
+		const customSlug = node.frontmatter.slug; // If you add extra data `slug` with description field
+		const tree = remark().parse(node.rawMarkdownBody);
 
-    let excerpt = '';
-    let start = false;
-    visit(tree, 'text', (node) => {
-      console.log(node);
-      if (start) {
-        excerpt += node.value;
-      }
-      if (node.value === '***') {
-        start = true;
-      }
-    });
+		let excerpt = '';
+		let start = false;
+		visit(tree, 'text', (node) => {
+			console.log(node);
+			if (start) {
+				excerpt += node.value;
+			}
+			if (node.value === '***') {
+				start = true;
+			}
+		});
 
-    excerpt = excerpt.slice(0, 140) + '...';
-    actions.createNodeField({
-      name: `slug`,
-      node,
-      value: customSlug || node.frontmatter.path,
-    });
-    actions.createNodeField({
-      name: `date`,
-      node,
-      value: node.frontmatter.date,
-    });
-    actions.createNodeField({
-      name: `path`,
-      node,
-      value: node.frontmatter.path,
-    });
-    actions.createNodeField({
-      name: `author`,
-      node,
-      value: node.frontmatter.author,
-    });
-    actions.createNodeField({
-      name: `excerpt`,
-      node,
-      value: excerpt,
-    });
-  }
+		excerpt = excerpt.slice(0, 140) + '...';
+		actions.createNodeField({
+			name: `slug`,
+			node,
+			value: customSlug || node.frontmatter.path,
+		});
+		actions.createNodeField({
+			name: `date`,
+			node,
+			value: node.frontmatter.date,
+		});
+		actions.createNodeField({
+			name: `path`,
+			node,
+			value: node.frontmatter.path,
+		});
+		actions.createNodeField({
+			name: `author`,
+			node,
+			value: node.frontmatter.author,
+		});
+		actions.createNodeField({
+			name: `excerpt`,
+			node,
+			value: excerpt,
+		});
+	}
 };
 
 exports.createPages = async ({ graphql, actions }) =>
-  graphql(
-    `
-      {
-        allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
-          edges {
-            node {
-              excerpt
-              fields {
-                slug
-                path
-              }
-            }
-          }
-        }
-      }
-    `
-  ).then((result) => {
-    if (result.errors) {
-      throw result.errors;
-    }
-    result.data.allMarkdownRemark.edges.forEach((post, index) => {
-      actions.createPage({
-        path: post.node.fields.path,
-        component: path.resolve(`./src/templates/blog-post.js`),
-        context: {
-          slug: post.node.fields.slug,
-        },
-      });
-    });
-  });
+	graphql(
+		`
+			{
+				allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
+					edges {
+						node {
+							excerpt
+							fields {
+								slug
+								path
+							}
+						}
+					}
+				}
+			}
+		`
+	).then((result) => {
+		if (result.errors) {
+			throw result.errors;
+		}
+		result.data.allMarkdownRemark.edges.forEach((post, index) => {
+			actions.createPage({
+				path: post.node.fields.path,
+				component: path.resolve(`./src/templates/blog-post.js`),
+				context: {
+					slug: post.node.fields.slug,
+				},
+			});
+		});
+	});
 
 // exports.createSchemaCustomization = ({ actions }) => {
 //   const { createTypes } = actions;
