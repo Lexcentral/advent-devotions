@@ -74,7 +74,7 @@ exports.createSchemaCustomization = ({ actions }) => {
 	// https://en.wikipedia.org/wiki/Currying
 	const isFuture = (fieldName) => (source) => {
 		const date = get(source, fieldName);
-		return new Date(date) <= new Date();
+		return new Date(date) <= new Date('2023-12-05');
 	};
 
 	createFieldExtension({
@@ -144,23 +144,21 @@ exports.onCreateNode = ({ node, actions }) => {
 };
 
 exports.createPages = async ({ graphql, actions }) =>
-	graphql(
-		`
-			{
-				allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
-					edges {
-						node {
-							excerpt
-							fields {
-								slug
-								path
-							}
+	graphql(`
+		{
+			allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
+				edges {
+					node {
+						excerpt
+						fields {
+							slug
+							path
 						}
 					}
 				}
 			}
-		`
-	).then((result) => {
+		}
+	`).then((result) => {
 		if (result.errors) {
 			throw result.errors;
 		}
