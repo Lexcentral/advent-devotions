@@ -74,7 +74,7 @@ exports.createSchemaCustomization = ({ actions }) => {
 	// https://en.wikipedia.org/wiki/Currying
 	const isFuture = (fieldName) => (source) => {
 		const date = get(source, fieldName);
-		return new Date(date) <= new Date('2023-12-05');
+		return new Date(date) <= new Date();
 	};
 
 	createFieldExtension({
