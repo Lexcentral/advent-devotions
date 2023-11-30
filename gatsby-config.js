@@ -73,7 +73,7 @@ module.exports = {
               {
                 allMarkdownRemark(
                   sort: { fields: [frontmatter___date], order: DESC }
-                  filter: { isFuture: { eq: false } }
+                  filter: { isFuture: { eq: true } } 
                 ) {
                   edges {
                     node {
